@@ -12,7 +12,7 @@ Zuletzt aktualisiert: 29.06.2026
 
 ## Phase 1 — MVP
 
-> Startet NACH aktuellen Prioritäten (Buchreihe + mietermappe-Launch)
+> **Geplanter Build-Tag: Dienstag, 30.06.2026**
 
 | Schritt | Status |
 |---|---|
