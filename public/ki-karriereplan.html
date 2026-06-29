@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mein KI-Karriereplan — ersetzt-mich-ki.de</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --cyan: #00e5ff;
+    --magenta: #e500a4;
+    --safe: #00ff88;
+    --warn: #ffe600;
+    --space: #060614;
+    --card: #0d0d2b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--space);
+    color: rgba(255,255,255,0.85);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13pt;
+    line-height: 1.7;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 18mm 18mm 16mm 18mm;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+  }
+
+  /* Grid bg */
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
+    background-size: 20mm 20mm;
+    pointer-events: none;
+  }
+
+  .mono { font-family: 'Space Mono', monospace; }
+  .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5pt;
+    letter-spacing: 0.2em;
+    color: rgba(0,229,255,0.6);
+    margin-bottom: 6pt;
+  }
+
+  h1 { font-size: 38pt; font-weight: 800; line-height: 1.1; color: #fff; }
+  h2 { font-size: 22pt; font-weight: 800; color: #fff; margin-bottom: 10pt; }
+  h3 { font-size: 14pt; font-weight: 700; color: var(--cyan); margin-bottom: 6pt; margin-top: 16pt; }
+  p { margin-bottom: 10pt; color: rgba(255,255,255,0.75); }
+  strong { color: #fff; font-weight: 700; }
+
+  .cover-grid {
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    min-height: 260mm;
+  }
+
+  .robot-svg { display: block; margin: 0 auto 8mm; }
+
+  .glow-cyan { color: var(--cyan); text-shadow: 0 0 20px rgba(0,229,255,0.6); }
+  .glow-magenta { color: var(--magenta); text-shadow: 0 0 20px rgba(229,0,164,0.6); }
+  .glow-safe { color: var(--safe); text-shadow: 0 0 16px rgba(0,255,136,0.5); }
+
+  .card {
+    background: rgba(0,229,255,0.04);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 12pt;
+    padding: 12pt 14pt;
+    margin: 10pt 0;
+  }
+  .card-magenta {
+    background: rgba(229,0,164,0.05);
+    border-color: rgba(229,0,164,0.2);
+  }
+  .card-safe {
+    background: rgba(0,255,136,0.04);
+    border-color: rgba(0,255,136,0.2);
+  }
+  .card-warn {
+    background: rgba(255,230,0,0.04);
+    border-color: rgba(255,230,0,0.2);
+  }
+
+  .check-list { list-style: none; }
+  .check-list li { padding: 5pt 0 5pt 22pt; position: relative; color: rgba(255,255,255,0.75); }
+  .check-list li::before { content: '✓'; position: absolute; left: 0; color: var(--safe); font-family: 'Space Mono', monospace; }
+
+  .cross-list { list-style: none; }
+  .cross-list li { padding: 5pt 0 5pt 22pt; position: relative; color: rgba(255,255,255,0.75); }
+  .cross-list li::before { content: '✗'; position: absolute; left: 0; color: var(--magenta); font-family: 'Space Mono', monospace; }
+
+  .number-list { list-style: none; counter-reset: num; }
+  .number-list li { padding: 6pt 0 6pt 28pt; position: relative; counter-increment: num; color: rgba(255,255,255,0.75); }
+  .number-list li::before { content: counter(num, decimal-leading-zero) '.'; position: absolute; left: 0; color: var(--magenta); font-family: 'Space Mono', monospace; font-size: 9pt; top: 8pt; }
+
+  .bar-wrap { margin: 6pt 0; }
+  .bar-label { font-family: 'Space Mono', monospace; font-size: 8pt; color: rgba(255,255,255,0.4); margin-bottom: 3pt; display: flex; justify-content: space-between; }
+  .bar-bg { height: 6pt; background: rgba(255,255,255,0.07); border-radius: 99pt; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99pt; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    margin: 14pt 0;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8pt; }
+
+  .pill {
+    display: inline-block;
+    padding: 3pt 10pt;
+    border-radius: 99pt;
+    font-size: 8pt;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+  }
+  .pill-safe { background: rgba(0,255,136,0.12); border: 1px solid rgba(0,255,136,0.3); color: var(--safe); }
+  .pill-warn { background: rgba(255,230,0,0.12); border: 1px solid rgba(255,230,0,0.3); color: var(--warn); }
+  .pill-risk { background: rgba(229,0,164,0.12); border: 1px solid rgba(229,0,164,0.3); color: var(--magenta); }
+
+  .page-num {
+    position: absolute;
+    bottom: 10mm;
+    right: 18mm;
+    font-family: 'Space Mono', monospace;
+    font-size: 8pt;
+    color: rgba(255,255,255,0.2);
+  }
+  .footer-brand {
+    position: absolute;
+    bottom: 10mm;
+    left: 18mm;
+    font-family: 'Space Mono', monospace;
+    font-size: 7pt;
+    color: rgba(255,255,255,0.15);
+  }
+
+  .big-score {
+    font-size: 64pt;
+    font-weight: 800;
+    line-height: 1;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .highlight-box {
+    border-left: 3pt solid var(--cyan);
+    padding: 8pt 12pt;
+    background: rgba(0,229,255,0.04);
+    margin: 10pt 0;
+    border-radius: 0 8pt 8pt 0;
+  }
+  .highlight-box-magenta {
+    border-left-color: var(--magenta);
+    background: rgba(229,0,164,0.04);
+  }
+
+  .action-week {
+    background: var(--card);
+    border-radius: 10pt;
+    padding: 10pt 14pt;
+    margin: 8pt 0;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .action-week-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5pt;
+    letter-spacing: 0.15em;
+    color: rgba(0,229,255,0.5);
+    margin-bottom: 5pt;
+  }
+
+  @media print {
+    body { background: var(--space) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { margin: 0; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ PAGE 1: COVER -->
+<div class="page" style="display:flex; flex-direction:column; justify-content:space-between; min-height:277mm;">
+  <div style="position:absolute;top:-30mm;right:-30mm;width:120mm;height:120mm;background:radial-gradient(circle,rgba(229,0,164,0.15) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-20mm;left:-20mm;width:100mm;height:100mm;background:radial-gradient(circle,rgba(0,229,255,0.1) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div>
+    <p class="label" style="margin-bottom:20mm;">&gt; ERSETZT-MICH-KI.DE · EIN PROJEKT VON KARRIEREENGEL</p>
+  </div>
+
+  <div style="text-align:center;">
+    <!-- Pixel Robot SVG -->
+    <svg class="robot-svg" viewBox="0 0 80 96" width="80" height="96" xmlns="http://www.w3.org/2000/svg">
+      <rect x="36" y="0" width="8" height="8" fill="#00e5ff" rx="2"/>
+      <rect x="30" y="8" width="20" height="6" fill="#00e5ff" opacity="0.7" rx="2"/>
+      <rect x="8" y="14" width="64" height="48" fill="#0d0d2b" rx="6"/>
+      <rect x="8" y="14" width="64" height="48" fill="none" stroke="#00e5ff" stroke-width="2" rx="6"/>
+      <rect x="16" y="26" width="20" height="16" fill="#00e5ff" opacity="0.1" rx="3"/>
+      <rect x="20" y="30" width="12" height="8" fill="#00e5ff" rx="2"/>
+      <rect x="44" y="26" width="20" height="16" fill="#00e5ff" opacity="0.1" rx="3"/>
+      <rect x="48" y="30" width="12" height="8" fill="#00e5ff" rx="2"/>
+      <rect x="18" y="48" width="44" height="5" fill="#00e5ff" opacity="0.2" rx="2"/>
+      <rect x="18" y="48" width="28" height="5" fill="#00e5ff" opacity="0.6" rx="2"/>
+      <rect x="32" y="62" width="16" height="8" fill="#0d0d2b"/>
+      <rect x="12" y="70" width="56" height="26" fill="#0d0d2b" rx="6"/>
+      <rect x="12" y="70" width="56" height="26" fill="none" stroke="#00e5ff" stroke-width="1.5" rx="6" opacity="0.6"/>
+      <circle cx="28" cy="83" r="5" fill="#e500a4"/>
+      <circle cx="40" cy="83" r="5" fill="#00e5ff"/>
+      <circle cx="52" cy="83" r="5" fill="#00ff88"/>
+    </svg>
+
+    <p class="label" style="font-size:9pt; letter-spacing:0.3em; margin-bottom:6mm;">&gt; DEIN PERSÖNLICHER LEITFADEN_</p>
+    <h1 style="font-size:42pt; margin-bottom:4mm;">
+      Mein<br><span class="glow-cyan">KI-Karriere</span><span class="glow-magenta">plan</span>
+    </h1>
+    <p style="font-size:14pt; color:rgba(255,255,255,0.45); margin-top:6mm; margin-bottom:0;">
+      In 5 Schritten zum zukunftssicheren Job
+    </p>
+  </div>
+
+  <div style="text-align:center; padding-bottom:4mm;">
+    <hr class="divider" style="margin-bottom:10pt;">
+    <p style="font-size:9pt; color:rgba(255,255,255,0.25); font-family:'Space Mono',monospace;">
+      ersetzt-mich-ki.de · Ein Projekt von Karriereengel · © 2026
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 2: INTRO -->
+<div class="page">
+  <p class="label">&gt; EINLEITUNG_</p>
+  <h2>Warum du diesen Guide liest — und was er dir bringt</h2>
+  <hr class="divider">
+
+  <p>
+    Du hast deinen KI-Jobrisiko-Score gemacht. Vielleicht hat er dich überrascht. Vielleicht hat er
+    bestätigt, was du ohnehin schon geahnt hast. In jedem Fall hast du jetzt eine Zahl — und die
+    Frage, die danach kommt, ist die eigentlich wichtige: <strong>Was mache ich jetzt damit?</strong>
+  </p>
+
+  <p>
+    Genau dafür ist dieser Guide. Keine Panik, keine Heilsversprechen. Nur ein klarer Plan,
+    was du konkret tun kannst — basierend auf den 5 Dimensionen, die deinen Score bestimmen.
+  </p>
+
+  <div class="highlight-box">
+    <p style="margin:0; color:rgba(255,255,255,0.85);">
+      <strong>Wichtig vorab:</strong> Kein Beruf wird von heute auf morgen verschwinden.
+      KI verändert Berufe — sie ersetzt Menschen, die sich nicht anpassen, und
+      stärkt Menschen, die mit ihr arbeiten können. Der Unterschied liegt bei dir.
+    </p>
+  </div>
+
+  <h3>Was dich in diesem Guide erwartet</h3>
+
+  <div class="card" style="margin-bottom:8pt;">
+    <ul class="check-list">
+      <li><strong>Kapitel 1:</strong> Wie KI Berufe wirklich verändert — die ehrliche Version</li>
+      <li><strong>Kapitel 2:</strong> Die 5 Dimensionen deines Scores — was sie bedeuten</li>
+      <li><strong>Kapitel 3:</strong> Dein persönlicher Aktionsplan (nach Risikolevel)</li>
+      <li><strong>Kapitel 4:</strong> Die Skills, die KI nie ersetzen kann</li>
+      <li><strong>Kapitel 5:</strong> Dein Lebenslauf für die KI-Ära</li>
+    </ul>
+  </div>
+
+  <p>
+    Dieser Guide ist bewusst kurz gehalten. Du brauchst keinen 200-Seiten-Wälzer —
+    du brauchst eine klare Richtung und die nächsten drei Schritte. Die findest du hier.
+  </p>
+
+  <div class="highlight-box highlight-box-magenta" style="margin-top:16pt;">
+    <p style="margin:0; font-family:'Space Mono',monospace; font-size:9pt; color:rgba(255,255,255,0.6);">
+      &gt; HINWEIS: Dieser Guide basiert auf denselben 5 Dimensionen, die ersetzt-mich-ki.de
+      für die Bewertung nutzt. Die Scores sind spielerische Einschätzungen — kein wissenschaftliches
+      Gutachten, aber ein ehrlicher Spiegel für deinen Beruf.
+    </p>
+  </div>
+
+  <div class="footer-brand">ersetzt-mich-ki.de · Ein Projekt von Karriereengel</div>
+  <div class="page-num">02</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 3: WIE KI BERUFE VERÄNDERT -->
+<div class="page">
+  <p class="label">&gt; KAPITEL 01_</p>
+  <h2>Wie KI Berufe wirklich verändert</h2>
+  <hr class="divider">
+
+  <p>
+    Die meisten Schlagzeilen liegen falsch. Weder wird KI alle Jobs vernichten,
+    noch ist sie harmlos. Die Wahrheit liegt dazwischen — und sie ist vielschichtiger
+    als jeder Clickbait-Artikel vermuten lässt.
+  </p>
+
+  <h3>Was wir wissen</h3>
+  <p>
+    Studien von McKinsey, Goldman Sachs und dem WEF zeigen: <strong>Bis 2030 werden rund 30 % aller
+    Arbeitsaufgaben automatisierbar sein</strong> — nicht 30 % aller Jobs. Aufgaben, nicht Berufe.
+    Das ist ein entscheidender Unterschied.
+  </p>
+
+  <div class="two-col" style="margin:10pt 0;">
+    <div class="card card-magenta">
+      <p class="label" style="color:rgba(229,0,164,0.7);">GEFÄHRDET</p>
+      <ul class="cross-list" style="font-size:11pt;">
+        <li>Routineaufgaben</li>
+        <li>Regelbasierte Entscheidungen</li>
+        <li>Datenverarbeitung & Eingabe</li>
+        <li>Standardisierte Texte</li>
+        <li>Einfache Bildanalyse</li>
+      </ul>
+    </div>
+    <div class="card card-safe">
+      <p class="label" style="color:rgba(0,255,136,0.7);">SICHER</p>
+      <ul class="check-list" style="font-size:11pt;">
+        <li>Echte menschliche Verbindung</li>
+        <li>Moralisches Urteilsvermögen</li>
+        <li>Kreative Synthese</li>
+        <li>Physische Präsenz & Handwerk</li>
+        <li>Komplexe Verhandlung</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Die eigentliche Verschiebung</h3>
+  <p>
+    KI ersetzt nicht den Buchhalter — sie ersetzt das Buchen von Belegen.
+    KI ersetzt nicht den Arzt — sie ersetzt das Lesen von Röntgenbildern nach Schema.
+    Was bleibt: Empathie, Kontext, Verantwortung, das Gespräch mit dem Menschen gegenüber.
+  </p>
+
+  <div class="highlight-box">
+    <p style="margin:0; font-size:11pt;">
+      <strong>Der neue Wettbewerb lautet nicht Mensch gegen KI —
+      sondern Mensch mit KI gegen Mensch ohne KI.</strong>
+      Wer KI als Werkzeug beherrscht, wird wertvoller. Nicht weniger.
+    </p>
+  </div>
+
+  <h3>Welche Jobs wirklich verschwinden</h3>
+  <p>
+    Berufe mit einem Score über 75 % auf ersetzt-mich-ki.de sind nicht automatisch verloren —
+    aber sie verändern sich am stärksten. Klassische Beispiele: Dateneingabe, einfache
+    Buchhaltung, Telefonmarketing, Standard-Sachbearbeitung. Hier wird die Transformation
+    in den nächsten 3–5 Jahren spürbar werden.
+  </p>
+
+  <div class="footer-brand">ersetzt-mich-ki.de · Ein Projekt von Karriereengel</div>
+  <div class="page-num">03</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 4: 5 DIMENSIONEN -->
+<div class="page">
+  <p class="label">&gt; KAPITEL 02_</p>
+  <h2>Die 5 Dimensionen deines Scores</h2>
+  <hr class="divider">
+
+  <p>
+    Dein Score setzt sich aus fünf Dimensionen zusammen. Jede steht für eine
+    Eigenschaft deines Berufs — und jede sagt dir etwas anderes darüber,
+    wo dein Risiko liegt und wo du gezielt handeln kannst.
+  </p>
+
+  <!-- Dimension 1 -->
+  <div class="card" style="margin-bottom:8pt;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6pt;">
+      <h3 style="margin:0; color:var(--cyan);">01 · Routine-Anteil</h3>
+      <span class="pill pill-risk">Gewicht: 30 %</span>
+    </div>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.7);">
+      Wie viel deiner Arbeitszeit verbringst du mit immer gleichen, vorhersehbaren Aufgaben?
+      Routinearbeiten sind das, was KI am schnellsten und besten übernimmt.
+      <strong>Je höher der Routine-Anteil, desto höher das Risiko.</strong>
+    </p>
+    <p style="margin:6pt 0 0; font-size:10pt; color:rgba(0,229,255,0.6); font-family:'Space Mono',monospace;">
+      → Was hilft: Automatisierungstools lernen &amp; auf Aufgaben mit Variabilität spezialisieren
+    </p>
+  </div>
+
+  <!-- Dimension 2 -->
+  <div class="card" style="margin-bottom:8pt;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6pt;">
+      <h3 style="margin:0; color:var(--cyan);">02 · Regelbasiertheit</h3>
+      <span class="pill pill-risk">Gewicht: 25 %</span>
+    </div>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.7);">
+      Folgst du klaren Regeln und Prozessen, oder triffst du täglich komplexe Einzelfall-Entscheidungen?
+      Regelbasierte Prozesse sind exakt das, wofür KI entwickelt wurde.
+    </p>
+    <p style="margin:6pt 0 0; font-size:10pt; color:rgba(0,229,255,0.6); font-family:'Space Mono',monospace;">
+      → Was hilft: Urteilsvermögen in Grenzfällen schärfen, Expertise in Ausnahmesituationen aufbauen
+    </p>
+  </div>
+
+  <!-- Dimension 3 -->
+  <div class="card" style="margin-bottom:8pt;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6pt;">
+      <h3 style="margin:0; color:var(--safe);">03 · Kreativität</h3>
+      <span class="pill pill-safe">Gewicht: 20 % (inv.)</span>
+    </div>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.7);">
+      Wie viel echter kreativer Spielraum steckt in deinem Job? Nicht das Ausführen von Templates —
+      sondern das Entwickeln neuer Ideen, Konzepte, Lösungen von Grund auf.
+      <strong>Mehr Kreativität = niedrigerer Score.</strong>
+    </p>
+    <p style="margin:6pt 0 0; font-size:10pt; color:rgba(0,229,255,0.6); font-family:'Space Mono',monospace;">
+      → Was hilft: Den kreativen Anteil deiner Arbeit aktiv ausbauen und sichtbar machen
+    </p>
+  </div>
+
+  <!-- Dimension 4 -->
+  <div class="card" style="margin-bottom:8pt;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6pt;">
+      <h3 style="margin:0; color:var(--safe);">04 · Menschliche Interaktion</h3>
+      <span class="pill pill-safe">Gewicht: 15 % (inv.)</span>
+    </div>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.7);">
+      Wie viel echter Menschenkontakt braucht dein Job? Echte Empathie, Vertrauen aufbauen,
+      schwierige Gespräche führen — das sind Fähigkeiten, die KI nicht wirklich replizieren kann.
+    </p>
+    <p style="margin:6pt 0 0; font-size:10pt; color:rgba(0,229,255,0.6); font-family:'Space Mono',monospace;">
+      → Was hilft: Kommunikation, Empathie und Beziehungsmanagement als Kernkompetenz positionieren
+    </p>
+  </div>
+
+  <!-- Dimension 5 -->
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6pt;">
+      <h3 style="margin:0; color:var(--safe);">05 · Körperliche Präsenz</h3>
+      <span class="pill pill-safe">Gewicht: 10 % (inv.)</span>
+    </div>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.7);">
+      Braucht dein Beruf physische Anwesenheit — Handwerk, Pflege, Installation, Baustelle?
+      KI kann (noch) keine Hände haben. Physische Arbeit ist strukturell geschützt.
+    </p>
+    <p style="margin:6pt 0 0; font-size:10pt; color:rgba(0,229,255,0.6); font-family:'Space Mono',monospace;">
+      → Was hilft: Physische Expertise mit digitalem Know-how kombinieren
+    </p>
+  </div>
+
+  <div class="footer-brand">ersetzt-mich-ki.de · Ein Projekt von Karriereengel</div>
+  <div class="page-num">04</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 5: AKTIONSPLAN NIEDRIG -->
+<div class="page">
+  <p class="label">&gt; KAPITEL 03A_</p>
+  <h2>Dein Aktionsplan</h2>
+  <div style="display:flex; gap:8pt; margin-bottom:16pt; flex-wrap:wrap;">
+    <span class="pill pill-safe" style="font-size:10pt; padding:5pt 14pt;">Score 0–29 % · Geringes Risiko</span>
+  </div>
+  <hr class="divider">
+
+  <p>
+    Glückwunsch — dein Beruf ist strukturell gut aufgestellt. Das bedeutet nicht,
+    dass du nichts tun musst. Es bedeutet, dass du von einer starken Position aus agieren kannst.
+    <strong>Jetzt ist der richtige Moment, deinen Vorsprung auszubauen.</strong>
+  </p>
+
+  <div class="highlight-box">
+    <p style="margin:0; font-size:11pt;">
+      Berufe mit niedrigem Risiko zeichnen sich durch hohe Kreativität, intensive Menschenarbeit
+      oder körperliche Präsenz aus. Dein Ziel: <strong>Diese Stärken noch sichtbarer machen</strong>
+      — und KI als Produktivitätshebel nutzen statt als Bedrohung zu sehen.
+    </p>
+  </div>
+
+  <h3>Deine 3 Prioritäten</h3>
+
+  <div class="action-week">
+    <p class="action-week-label">&gt; PRIORITÄT 01 · KI ALS HEBEL NUTZEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Lerne, wie KI-Tools deine Arbeit schneller machen — nicht dich ersetzen.
+      ChatGPT für Recherche, Midjourney für Visualisierungen, Claude für Textentwürfe.
+      Wer KI bedienen kann, ist 30–50 % produktiver. Das ist dein Vorteil.
+    </p>
+  </div>
+
+  <div class="action-week">
+    <p class="action-week-label">&gt; PRIORITÄT 02 · DEINE EINZIGARTIGKEIT DOKUMENTIEREN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Was kannst du, was kein Kollege und keine KI kann? Schreib es auf.
+      Drei konkrete Projekte, drei messbare Ergebnisse, drei Fähigkeiten, die dich
+      einzigartig machen. Das ist das Material für deinen KI-sicheren Lebenslauf.
+    </p>
+  </div>
+
+  <div class="action-week">
+    <p class="action-week-label">&gt; PRIORITÄT 03 · SICHTBARKEIT ERHÖHEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Niedrig-Risiko-Berufe werden gefragter. Nutze das: LinkedIn-Profil schärfen,
+      Expertise teilen, Netzwerk aufbauen. Wer jetzt Autorität aufbaut, gewinnt
+      wenn die Nachfrage nach human-zentrierten Berufen steigt.
+    </p>
+  </div>
+
+  <h3>Nächste 30 Tage — konkret</h3>
+  <ul class="check-list">
+    <li>Ein KI-Tool (ChatGPT / Claude) für 1 Woche täglich 30 min nutzen</li>
+    <li>LinkedIn-Profil aktualisieren: "Spezialist für [deine Kernstärke]"</li>
+    <li>3 Erfolgsprojekte als kurze Bullet Points aufschreiben</li>
+    <li>Eine Person in deinem Netzwerk proaktiv kontaktieren</li>
+  </ul>
+
+  <div class="footer-brand">ersetzt-mich-ki.de · Ein Projekt von Karriereengel</div>
+  <div class="page-num">05</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 6: AKTIONSPLAN MITTEL -->
+<div class="page">
+  <p class="label">&gt; KAPITEL 03B_</p>
+  <h2>Dein Aktionsplan</h2>
+  <div style="display:flex; gap:8pt; margin-bottom:16pt; flex-wrap:wrap;">
+    <span class="pill pill-warn" style="font-size:10pt; padding:5pt 14pt;">Score 30–65 % · Mittleres Risiko</span>
+  </div>
+  <hr class="divider">
+
+  <p>
+    Dein Beruf hat Teile, die KI gut übernehmen kann — und Teile, bei denen du unersetzlich bist.
+    Die nächsten 12–18 Monate entscheiden, auf welche Seite du fällst.
+    <strong>Du hast noch Zeit — aber du solltest sie nutzen.</strong>
+  </p>
+
+  <div class="highlight-box" style="border-left-color:var(--warn); background:rgba(255,230,0,0.04);">
+    <p style="margin:0; font-size:11pt;">
+      Mittleres Risiko bedeutet: Die KI wird bestimmte Aufgaben in deinem Job übernehmen.
+      Du wirst mehr Zeit für die menschlichen, kreativen, strategischen Teile haben.
+      <strong>Das ist eine Chance — wenn du sie erkennst.</strong>
+    </p>
+  </div>
+
+  <h3>Deine 4 Prioritäten</h3>
+
+  <div class="action-week">
+    <p class="action-week-label" style="color:rgba(255,230,0,0.5);">&gt; PRIORITÄT 01 · ROUTINE DELEGIEREN, NICHT VERTEIDIGEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Identifiziere welche Teile deines Jobs reine Routine sind. Lerne,
+      diese mit KI-Tools zu automatisieren. Wer seine Routine-Aufgaben selbst automatisiert,
+      macht sich nicht überflüssig — er schafft Kapazität für Höherwertiges.
+    </p>
+  </div>
+
+  <div class="action-week">
+    <p class="action-week-label" style="color:rgba(255,230,0,0.5);">&gt; PRIORITÄT 02 · T-SHAPED PROFIL AUFBAUEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      T-Shaped bedeutet: Breites Grundwissen + tiefe Expertise in einem Bereich.
+      Dein Job-Kernbereich ist deine Tiefe. Die Breite: KI-Kompetenz, Datenkompetenz,
+      Kommunikation. Diese Kombination ist schwer zu ersetzen.
+    </p>
+  </div>
+
+  <div class="action-week">
+    <p class="action-week-label" style="color:rgba(255,230,0,0.5);">&gt; PRIORITÄT 03 · HYBRIDE ROLLE ANSTREBEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Die wertvollsten Jobs der nächsten 5 Jahre sind Hybrid-Rollen: Menschen die
+      sowohl Fachexpertise als auch KI-Kompetenz haben. Beispiel: "Buchhalter + KI-Analyse"
+      ist wertvoller als "Buchhalter". Positioniere dich entsprechend.
+    </p>
+  </div>
+
+  <div class="action-week">
+    <p class="action-week-label" style="color:rgba(255,230,0,0.5);">&gt; PRIORITÄT 04 · WEITERBILDUNG JETZT STARTEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Nicht irgendwann. Jetzt. Eine Stunde pro Woche Weiterbildung in KI-Tools,
+      deiner Fachdomäne oder Soft Skills. Kleine Investition, große Wirkung
+      über 12 Monate.
+    </p>
+  </div>
+
+  <h3>Nächste 30 Tage — konkret</h3>
+  <ul class="check-list">
+    <li>Schreib auf: Welche 3 Aufgaben in deinem Job könnte KI schon heute übernehmen?</li>
+    <li>Eines davon selbst automatisieren (mit ChatGPT, Notion AI, etc.)</li>
+    <li>Einen Kurs starten: KI-Grundlagen, Datenanalyse oder Führungskompetenz</li>
+    <li>Mit deinem Chef sprechen: Wie sieht der Job in 3 Jahren aus?</li>
+  </ul>
+
+  <div class="footer-brand">ersetzt-mich-ki.de · Ein Projekt von Karriereengel</div>
+  <div class="page-num">06</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 7: AKTIONSPLAN HOCH -->
+<div class="page">
+  <p class="label">&gt; KAPITEL 03C_</p>
+  <h2>Dein Aktionsplan</h2>
+  <div style="display:flex; gap:8pt; margin-bottom:16pt; flex-wrap:wrap;">
+    <span class="pill pill-risk" style="font-size:10pt; padding:5pt 14pt;">Score 66–100 % · Hohes Risiko</span>
+  </div>
+  <hr class="divider">
+
+  <p>
+    Dein Score ist hoch — das bedeutet, dass dein aktueller Job in seiner jetzigen Form
+    unter Druck geraten wird. <strong>Das ist kein Todesurteil. Es ist ein Weckruf mit genug Zeit,
+    um zu handeln.</strong> Berufe mit hohem Risiko verschwinden nicht über Nacht.
+    Aber sie verändern sich schneller als andere.
+  </p>
+
+  <div class="card card-magenta" style="margin-bottom:14pt;">
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.85);">
+      Wichtig: Hoher Score heißt nicht, dass du deinen Job verlierst. Es heißt,
+      dass du aktiv gestalten solltest, wie sich dein Job verändert — bevor jemand
+      anderes das für dich entscheidet.
+    </p>
+  </div>
+
+  <h3>Deine 5-Schritte-Strategie</h3>
+
+  <div class="action-week" style="border-left:2pt solid var(--magenta); padding-left:12pt; background:transparent; border-radius:0;">
+    <p class="action-week-label" style="color:rgba(229,0,164,0.6);">&gt; SCHRITT 01 · EHRLICHE BESTANDSAUFNAHME</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Schreib jeden Aspekt deines Jobs auf. Dann markiere: Was davon ist Routine? Was braucht echten Menschenverstand?
+      Dieser Blick ist der erste Schritt zur Veränderung.
+    </p>
+  </div>
+
+  <div class="action-week" style="border-left:2pt solid var(--magenta); padding-left:12pt; background:transparent; border-radius:0;">
+    <p class="action-week-label" style="color:rgba(229,0,164,0.6);">&gt; SCHRITT 02 · TRANSFERIERBARE SKILLS IDENTIFIZIEREN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Was kannst du, das in anderen Branchen oder Rollen gefragt ist? Buchhalter können
+      Finanzanalyse. Sachbearbeiter können Prozessoptimierung. Telefonist:innen können
+      Kundenbetreuung auf höherem Niveau. Dein Wissen ist wertvoller als du denkst.
+    </p>
+  </div>
+
+  <div class="action-week" style="border-left:2pt solid var(--magenta); padding-left:12pt; background:transparent; border-radius:0;">
+    <p class="action-week-label" style="color:rgba(229,0,164,0.6);">&gt; SCHRITT 03 · KI-KOMPETENZ ALS USP AUFBAUEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Der paradoxeste Weg raus: KI selbst lernen. Wer KI bedienen und einsetzen kann,
+      wird zum wertvollen "KI-Supervisors" — jemand, der KI-Outputs prüft, trainiert und
+      in menschliche Kontexte übersetzt.
+    </p>
+  </div>
+
+  <div class="action-week" style="border-left:2pt solid var(--magenta); padding-left:12pt; background:transparent; border-radius:0;">
+    <p class="action-week-label" style="color:rgba(229,0,164,0.6);">&gt; SCHRITT 04 · BRANCHE ODER FOKUS VERSCHIEBEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      Nicht unbedingt den Job wechseln — den Fokus verschieben. Vom ausführenden
+      Buchhalter zum beratenden Finanzstrategen. Vom Dateneingabe-Sachbearbeiter
+      zum Prozessmanager. Die Richtung: mehr Kontext, weniger Ausführung.
+    </p>
+  </div>
+
+  <div class="action-week" style="border-left:2pt solid var(--magenta); padding-left:12pt; background:transparent; border-radius:0;">
+    <p class="action-week-label" style="color:rgba(229,0,164,0.6);">&gt; SCHRITT 05 · NETZWERK JETZT AUFBAUEN</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      In einem starken Arbeitsmarkt werden Stellen über Beziehungen besetzt.
+      Baue jetzt Kontakte auf — nicht wenn du sie brauchst. LinkedIn, Branchenevents,
+      ehemalige Kollegen. Dein Netzwerk ist deine Versicherung.
+    </p>
+  </div>
+
+  <div class="footer-brand">ersetzt-mich-ki.de · Ein Projekt von Karriereengel</div>
+  <div class="page-num">07</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 8: SKILLS DIE KI NICHT ERSETZT -->
+<div class="page">
+  <p class="label">&gt; KAPITEL 04_</p>
+  <h2>Die Skills, die KI niemals ersetzen kann</h2>
+  <hr class="divider">
+
+  <p>
+    Es gibt Fähigkeiten, für die KI strukturell ungeeignet ist — nicht weil die Technologie
+    noch nicht weit genug ist, sondern weil sie fundamentale menschliche Qualitäten erfordern.
+    Diese Skills sind dein Schutzschild — und sie sind erlernbar.
+  </p>
+
+  <div class="three-col" style="margin-bottom:14pt;">
+    <div class="card" style="text-align:center;">
+      <p style="font-size:20pt; margin-bottom:4pt;">🤝</p>
+      <p class="label" style="margin-bottom:4pt;">EMPATHIE</p>
+      <p style="font-size:10pt; color:rgba(255,255,255,0.55); margin:0;">Echtes Mitgefühl, Vertrauen aufbauen, Menschen lesen</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <p style="font-size:20pt; margin-bottom:4pt;">⚖️</p>
+      <p class="label" style="margin-bottom:4pt;">URTEILSVERMÖGEN</p>
+      <p style="font-size:10pt; color:rgba(255,255,255,0.55); margin:0;">Ethische Abwägungen, Verantwortung tragen, Grenzfälle</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <p style="font-size:20pt; margin-bottom:4pt;">💡</p>
+      <p class="label" style="margin-bottom:4pt;">KREATIVE SYNTHESE</p>
+      <p style="font-size:10pt; color:rgba(255,255,255,0.55); margin:0;">Neue Ideen aus Erfahrung und Intuition</p>
+    </div>
+  </div>
+
+  <div class="three-col" style="margin-bottom:14pt;">
+    <div class="card" style="text-align:center;">
+      <p style="font-size:20pt; margin-bottom:4pt;">🎯</p>
+      <p class="label" style="margin-bottom:4pt;">FÜHRUNG</p>
+      <p style="font-size:10pt; color:rgba(255,255,255,0.55); margin:0;">Menschen motivieren, Vorbild sein, Vertrauen schenken</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <p style="font-size:20pt; margin-bottom:4pt;">🔗</p>
+      <p class="label" style="margin-bottom:4pt;">VERNETZUNG</p>
+      <p style="font-size:10pt; color:rgba(255,255,255,0.55); margin:0;">Echte Beziehungen, Verhandlung, Einfluss</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <p style="font-size:20pt; margin-bottom:4pt;">🛠️</p>
+      <p class="label" style="margin-bottom:4pt;">HANDWERK</p>
+      <p style="font-size:10pt; color:rgba(255,255,255,0.55); margin:0;">Physisches Können, Reparatur, Präsenz vor Ort</p>
+    </div>
+  </div>
+
+  <h3>Wie du diese Skills aufbaust</h3>
+
+  <div class="highlight-box">
+    <p style="margin:0; font-size:11pt;">
+      <strong>Empathie &amp; Kommunikation:</strong> Aktives Zuhören üben. In Gesprächen nachfragen statt antworten.
+      Konflikte offen ansprechen statt vermeiden. Soft Skills wachsen durch Praxis, nicht durch Kurse.
+    </p>
+  </div>
+
+  <div class="highlight-box" style="margin-top:8pt;">
+    <p style="margin:0; font-size:11pt;">
+      <strong>Kritisches Denken &amp; Urteilsvermögen:</strong> Entscheidungen bewusst dokumentieren. "Warum" notieren,
+      nicht nur "Was". Annahmen hinterfragen. Mit Menschen diskutieren, die anders denken.
+    </p>
+  </div>
+
+  <div class="highlight-box" style="margin-top:8pt;">
+    <p style="margin:0; font-size:11pt;">
+      <strong>KI-Kompetenz als Meta-Skill:</strong> Lerne, KI-Outputs zu bewerten, zu korrigieren und zu verbessern.
+      Prompt Engineering. KI-Ergebnisse in menschliche Kontexte übersetzen.
+      Das ist der wertvollste Hybrid-Skill der nächsten 10 Jahre.
+    </p>
+  </div>
+
+  <div class="footer-brand">ersetzt-mich-ki.de · Ein Projekt von Karriereengel</div>
+  <div class="page-num">08</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 9: LEBENSLAUF FÜR DIE KI-ÄRA -->
+<div class="page">
+  <p class="label">&gt; KAPITEL 05_</p>
+  <h2>Dein Lebenslauf für die KI-Ära</h2>
+  <hr class="divider">
+
+  <p>
+    Der Lebenslauf von 2020 reicht nicht mehr. Nicht weil die Form sich geändert hat —
+    sondern weil die Frage, die Recruiter und Arbeitgeber stellen, eine andere ist:
+    <strong>Kann diese Person in einer Welt mit KI einen Unterschied machen?</strong>
+  </p>
+
+  <h3>Was rein muss — neu</h3>
+
+  <div class="two-col">
+    <div>
+      <div class="card card-safe" style="margin-bottom:8pt;">
+        <p class="label" style="color:rgba(0,255,136,0.6); font-size:7pt;">MUSS REIN</p>
+        <ul class="check-list" style="font-size:11pt;">
+          <li>KI-Tools die du nutzt (konkret)</li>
+          <li>Messbare Ergebnisse statt Aufgaben</li>
+          <li>Führungs- & Kommunikationserfolge</li>
+          <li>Kreative Projekte mit Impact</li>
+          <li>Hybride Fähigkeiten</li>
+          <li>Soft Skills mit Belegen</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card card-magenta" style="margin-bottom:8pt;">
+        <p class="label" style="color:rgba(229,0,164,0.6); font-size:7pt;">RAUS DAMIT</p>
+        <ul class="cross-list" style="font-size:11pt;">
+          <li>Reine Aufgabenlisten ohne Ergebnis</li>
+          <li>"Teamfähig und motiviert"</li>
+          <li>Verantwortlichkeiten die KI macht</li>
+          <li>Veraltete Tool-Kenntnisse</li>
+          <li>Generische Floskelformulierungen</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>Die goldene Formel für Lebenslauf-Bulletpoints</h3>
+
+  <div class="card" style="text-align:center; padding:16pt;">
+    <p class="mono" style="font-size:13pt; color:var(--cyan); letter-spacing:0.05em;">
+      AKTION · MIT WEM / WIE · MESSBARES ERGEBNIS
+    </p>
+    <p style="font-size:10pt; color:rgba(255,255,255,0.4); margin:8pt 0 0;">Beispiel:</p>
+    <p style="font-size:11pt; color:rgba(255,255,255,0.7); font-style:italic; margin:4pt 0 0;">
+      "Führte monatliche Strategie-Workshops mit 12 Führungskräften durch →<br>Reduktion der Entscheidungszeit um 40 %"
+    </p>
+  </div>
+
+  <h3>KI-Skills im Lebenslauf — so geht's</h3>
+
+  <div class="action-week">
+    <p class="action-week-label">&gt; STATT: "Erfahrung mit KI-Tools"</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      <strong>BESSER:</strong> "Nutze Claude und ChatGPT für Recherche und Textentwürfe — reduziert
+      Erstellungszeit um 60 %, Qualität durch eigenes Review gesichert"
+    </p>
+  </div>
+
+  <div class="action-week" style="margin-top:8pt;">
+    <p class="action-week-label">&gt; STATT: "Gute Kommunikationsfähigkeiten"</p>
+    <p style="margin:0; font-size:11pt; color:rgba(255,255,255,0.8);">
+      <strong>BESSER:</strong> "Moderierte wöchentliche Kundengespräche mit schwierigen Situationen —
+      Kundenbindungsrate über 3 Jahre konstant bei 94 %"
+    </p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="card card-magenta" style="text-align:center; padding:16pt;">
+    <p class="label" style="color:rgba(229,0,164,0.7);">&gt; NÄCHSTER SCHRITT_</p>
+    <h3 style="margin:4pt 0 6pt; font-size:16pt; color:#fff;">Lass Karriereengel deinen Lebenslauf optimieren</h3>
+    <p style="font-size:11pt; color:rgba(255,255,255,0.55); margin:0;">
+      Karriereengel hilft dir, all das was du in diesem Guide gelernt hast, in einem
+      überzeugenden Lebenslauf zu verankern — der auch KI-Recruiting-Systeme (ATS) übersteht.
+    </p>
+    <p style="margin-top:10pt; font-family:'Space Mono',monospace; font-size:10pt; color:var(--cyan);">
+      karriereengel.de
+    </p>
+  </div>
+
+  <div class="footer-brand">ersetzt-mich-ki.de · Ein Projekt von Karriereengel</div>
+  <div class="page-num">09</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 10: ABSCHLUSS -->
+<div class="page" style="display:flex; flex-direction:column; justify-content:space-between; min-height:260mm;">
+  <div style="position:absolute;top:-20mm;right:-20mm;width:120mm;height:120mm;background:radial-gradient(circle,rgba(0,229,255,0.1) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-20mm;left:-20mm;width:100mm;height:100mm;background:radial-gradient(circle,rgba(229,0,164,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div>
+    <p class="label">&gt; ABSCHLUSS_</p>
+    <h2>Du hast jetzt einen Plan.</h2>
+    <hr class="divider">
+
+    <p>
+      KI ist weder dein Feind noch dein Retter. Sie ist ein Werkzeug — wie das Smartphone,
+      der Computer, das Internet vor ihr. Alle haben Berufe verändert. Alle haben neue
+      Berufe geschaffen. Alle haben denen geschadet, die sich nicht angepasst haben.
+    </p>
+
+    <p>
+      Der Unterschied diesmal: <strong>Die Veränderung kommt schneller.</strong>
+      Das bedeutet nicht Panik — es bedeutet Klarheit darüber, was jetzt zu tun ist.
+    </p>
+
+    <div class="card" style="margin-top:16pt;">
+      <p class="label">&gt; DEINE 3 NÄCHSTEN SCHRITTE_</p>
+      <ul class="number-list">
+        <li>Deinen Score mit deinem realen Jobprofil vergleichen — stimmen die Dimensionen? Was überrascht dich?</li>
+        <li>Einen konkreten Skill aus Kapitel 4 auswählen und in den nächsten 4 Wochen aktiv üben.</li>
+        <li>Deinen Lebenslauf öffnen und 3 Bulletpoints nach der Goldenen Formel umschreiben.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <hr class="divider">
+    <div style="text-align:center; padding:10pt 0;">
+      <svg viewBox="0 0 60 72" width="50" height="60" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 10pt;">
+        <rect x="27" y="0" width="6" height="6" fill="#00e5ff" rx="1.5"/>
+        <rect x="22.5" y="6" width="15" height="4.5" fill="#00e5ff" opacity="0.7" rx="1.5"/>
+        <rect x="6" y="10.5" width="48" height="36" fill="#0d0d2b" rx="4.5"/>
+        <rect x="6" y="10.5" width="48" height="36" fill="none" stroke="#00e5ff" stroke-width="1.5" rx="4.5"/>
+        <rect x="12" y="19.5" width="15" height="12" fill="#00e5ff" opacity="0.1" rx="2.25"/>
+        <rect x="15" y="22.5" width="9" height="6" fill="#00e5ff" rx="1.5"/>
+        <rect x="33" y="19.5" width="15" height="12" fill="#00e5ff" opacity="0.1" rx="2.25"/>
+        <rect x="36" y="22.5" width="9" height="6" fill="#00e5ff" rx="1.5"/>
+        <rect x="13.5" y="36" width="33" height="3.75" fill="#00e5ff" opacity="0.2" rx="1.5"/>
+        <rect x="13.5" y="36" width="21" height="3.75" fill="#00e5ff" opacity="0.6" rx="1.5"/>
+        <rect x="24" y="46.5" width="12" height="6" fill="#0d0d2b"/>
+        <rect x="9" y="52.5" width="42" height="19.5" fill="#0d0d2b" rx="4.5"/>
+        <rect x="9" y="52.5" width="42" height="19.5" fill="none" stroke="#00e5ff" stroke-width="1.2" rx="4.5" opacity="0.6"/>
+        <circle cx="21" cy="62.25" r="3.75" fill="#e500a4"/>
+        <circle cx="30" cy="62.25" r="3.75" fill="#00e5ff"/>
+        <circle cx="39" cy="62.25" r="3.75" fill="#00ff88"/>
+      </svg>
+      <p style="font-size:9pt; color:rgba(255,255,255,0.25); font-family:'Space Mono',monospace; margin-bottom:4pt;">
+        ersetzt-mich-ki.de · Ein Projekt von Karriereengel
+      </p>
+      <p style="font-size:9pt; color:rgba(255,255,255,0.15); font-family:'Space Mono',monospace;">
+        © 2026 · Alle Rechte vorbehalten · Keine Berufsberatung · Illustrativer Charakter
+      </p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
