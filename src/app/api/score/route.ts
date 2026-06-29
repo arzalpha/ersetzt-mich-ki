@@ -26,11 +26,13 @@ export async function POST(req: NextRequest) {
 
   const text = message.content[0].type === 'text' ? message.content[0].text : ''
 
+  // Extract JSON object even if Claude wraps it in text or markdown
+  const jsonMatch = text.match(/\{[\s\S]*\}/)
   let result: ScoreResult
   try {
-    result = JSON.parse(text)
+    result = JSON.parse(jsonMatch ? jsonMatch[0] : text)
   } catch {
-    return NextResponse.json({ error: 'Parsing-Fehler' }, { status: 500 })
+    return NextResponse.json({ error: 'Parsing-Fehler', raw: text.slice(0, 200) }, { status: 500 })
   }
 
   return NextResponse.json(result)
