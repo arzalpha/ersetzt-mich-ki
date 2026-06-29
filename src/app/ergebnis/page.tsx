@@ -36,6 +36,64 @@ function DimensionBar({ label, value, inverted }: { label: string; value: number
   )
 }
 
+function WaitlistBlock() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!email.trim()) return
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      setStatus(res.ok ? 'done' : 'error')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  return (
+    <section className="rounded-2xl p-6 mb-8" style={{ background: 'rgba(0,229,255,0.04)', border: '1px solid rgba(0,229,255,0.15)' }}>
+      <p className="text-xs font-mono tracking-widest mb-2" style={{ color: 'rgba(0,229,255,0.6)' }}>&gt; FRÜHER ZUGANG_</p>
+      <h2 className="text-xl font-black text-white mb-1">Karriereengel startet bald.</h2>
+      <p className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>
+        Trag dich ein — du bekommst als Erste:r Bescheid, wenn die Plattform live geht,
+        die dir hilft deinen Lebenslauf KI-sicher zu machen.
+      </p>
+      {status === 'done' ? (
+        <p className="text-sm font-bold" style={{ color: '#00ff88' }}>✓ Du bist auf der Liste. Wir melden uns!</p>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex gap-2 flex-wrap">
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="deine@email.de"
+            required
+            disabled={status === 'sending'}
+            className="flex-1 min-w-0 rounded-xl px-4 py-2.5 text-white text-sm placeholder-gray-600 focus:outline-none"
+            style={{ background: 'rgba(0,229,255,0.06)', border: '1px solid rgba(0,229,255,0.2)' }}
+          />
+          <button
+            type="submit"
+            disabled={status === 'sending' || !email.trim()}
+            className="font-bold text-sm px-5 py-2.5 rounded-xl transition whitespace-nowrap"
+            style={{ background: 'rgba(0,229,255,0.15)', border: '1px solid rgba(0,229,255,0.3)', color: '#00e5ff', opacity: status === 'sending' ? 0.5 : 1 }}
+          >
+            {status === 'sending' ? '…' : 'Eintragen →'}
+          </button>
+        </form>
+      )}
+      {status === 'error' && <p className="text-xs mt-2" style={{ color: '#e500a4' }}>Fehler beim Eintragen — bitte nochmal versuchen.</p>}
+      <p className="text-xs mt-3" style={{ color: 'rgba(255,255,255,0.2)' }}>Kein Spam. Nur ein einziges Mal, wenn Karriereengel live ist.</p>
+    </section>
+  )
+}
+
 export default function ErgebnisPage() {
   const params = useSearchParams()
   const job = params.get('job') ?? ''
@@ -145,6 +203,8 @@ export default function ErgebnisPage() {
             Lebenslauf optimieren →
           </a>
         </section>
+
+        <WaitlistBlock />
 
         <div className="pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.2)' }}>
