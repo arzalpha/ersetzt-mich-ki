@@ -65,17 +65,19 @@ export default function Ueber() {
         <section>
           <h2 className="text-white font-bold text-lg mb-3">Wer steckt dahinter?</h2>
           <p>
-            Dieses Tool ist ein Projekt von{' '}
+            Ich bin <strong style={{ color: '#fff' }}>Christian Arzberger</strong> — und dieses Tool
+            ist mein Projekt. Ich baue{' '}
             <a href="https://karriereengel.de" target="_blank" rel="noopener noreferrer"
               className="underline font-semibold" style={{ color: '#00e5ff' }}>
               Karriereengel
             </a>
-            {' '}— einer Plattform, die Menschen dabei hilft, ihre berufliche Zukunft aktiv zu gestalten.
+            {' '}— eine Plattform, die Menschen dabei hilft, ihre berufliche Zukunft aktiv zu gestalten.
             Lebenslauf, Bewerbung, Positionierung: Karriereengel steht auf der Seite der Arbeitnehmer:innen.
           </p>
           <p className="mt-3">
-            Wir glauben: Der beste Schutz vor KI-Automatisierung ist kein Kopf-in-den-Sand-Stecken,
+            Ich glaube: Der beste Schutz vor KI-Automatisierung ist kein Kopf-in-den-Sand-Stecken,
             sondern ein starkes, klares Profil — das die Fähigkeiten betont, die KI nicht ersetzen kann.
+            Dieses Tool soll der erste Schritt sein.
           </p>
         </section>
 
