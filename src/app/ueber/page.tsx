@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Über dieses Projekt — ersetzt-mich-ki.de',
-  description: 'Warum wir dieses Tool gebaut haben — und warum wir an KI glauben, ohne dabei Panik zu verbreiten.',
+  description: 'Warum ich dieses Tool gebaut habe — und warum ich an KI glaube, ohne dabei Panik zu verbreiten.',
 }
 
 export default function Ueber() {
@@ -31,21 +31,21 @@ export default function Ueber() {
             sind entweder panikmachend oder beschönigend.
           </p>
           <p className="mt-3">
-            Wir wollten etwas Drittes: ein ehrliches, spielerisches Werkzeug, das dir in zwei Minuten
+            Ich wollte etwas Drittes: ein ehrliches, spielerisches Werkzeug, das dir in zwei Minuten
             zeigt, wo dein Beruf steht — und dir gleichzeitig konkrete Wege zeigt, wie du dich
             positionieren kannst. Keine Katastrophenszenarien, keine leeren Beruhigungen.
           </p>
         </section>
 
         <section>
-          <h2 className="text-white font-bold text-lg mb-3">Wir glauben an KI.</h2>
+          <h2 className="text-white font-bold text-lg mb-3">Ich glaube an KI.</h2>
           <p>
-            Wir sind überzeugte KI-Nutzer und -Enthusiasten. Künstliche Intelligenz ist eines der
+            Ich bin überzeugter KI-Nutzer und -Enthusiast. Künstliche Intelligenz ist eines der
             kraftvollsten Werkzeuge, das Menschen je hatten — sie macht uns produktiver, kreativer
             und hilft uns, bessere Entscheidungen zu treffen.
           </p>
           <p className="mt-3">
-            Genau deshalb nehmen wir sie ernst. Wer KI verharmlost, wird von ihr überrascht. Wer
+            Genau deshalb nehme ich sie ernst. Wer KI verharmlost, wird von ihr überrascht. Wer
             sie versteht, kann mit ihr wachsen.
           </p>
         </section>
@@ -85,7 +85,7 @@ export default function Ueber() {
           <h2 className="text-white font-bold text-lg mb-3">Feedback & Kontakt</h2>
           <p>
             Hast du Anmerkungen zur Methodik, einen Fehler entdeckt oder willst einfach Hallo sagen?
-            Wir freuen uns über jede Nachricht.
+            Ich freue mich über jede Nachricht.
           </p>
           <Link
             href="/kontakt"
