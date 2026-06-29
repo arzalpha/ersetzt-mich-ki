@@ -31,8 +31,8 @@ export default function Ueber() {
             sind entweder panikmachend oder beschönigend.
           </p>
           <p className="mt-3">
-            Ich wollte etwas Drittes: ein ehrliches, spielerisches Werkzeug, das dir in zwei Minuten
-            zeigt, wo dein Beruf steht — und dir gleichzeitig konkrete Wege zeigt, wie du dich
+            Ich wollte etwas Drittes: ein ehrliches, spielerisches Werkzeug, das deinen Beruf
+            in zwei Minuten einordnet — und dir konkrete Wege aufzeigt, wie du dich
             positionieren kannst. Keine Katastrophenszenarien, keine leeren Beruhigungen.
           </p>
         </section>
