@@ -155,6 +155,8 @@ export default function Home() {
             karriereengel.de
           </a>
           {' · '}
+          <a href="/ueber" className="underline transition hover:opacity-60" style={{ color: 'rgba(255,255,255,0.3)' }}>Über das Projekt</a>
+          {' · '}
           <a href="/impressum" className="underline transition hover:opacity-60" style={{ color: 'rgba(255,255,255,0.3)' }}>Impressum</a>
           {' · '}
           <a href="/datenschutz" className="underline transition hover:opacity-60" style={{ color: 'rgba(255,255,255,0.3)' }}>Datenschutz</a>

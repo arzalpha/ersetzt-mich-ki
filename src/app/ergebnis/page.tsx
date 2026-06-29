@@ -149,6 +149,7 @@ export default function ErgebnisPage() {
         <div className="pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.2)' }}>
             Spielerische, illustrative Einschätzung — keine Berufsberatung, ohne Gewähr. Bewertet anhand von 5 Dimensionen mit einem KI-Sprachmodell (Claude, Anthropic).{' '}
+            <Link href="/ueber" className="underline hover:opacity-60 transition">Über das Projekt</Link>{' · '}
             <Link href="/impressum" className="underline hover:opacity-60 transition">Impressum</Link>{' · '}
             <Link href="/datenschutz" className="underline hover:opacity-60 transition">Datenschutz</Link>
           </p>
