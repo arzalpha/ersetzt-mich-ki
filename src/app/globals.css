@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cyan: #00e5ff;
+  --magenta: #e500a4;
+  --safe: #00ff88;
+  --warn: #ffe600;
+  --space: #060614;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--space);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.glow-cyan {
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 0 40px rgba(0, 229, 255, 0.3);
+}
+.glow-magenta {
+  text-shadow: 0 0 20px rgba(229, 0, 164, 0.7), 0 0 40px rgba(229, 0, 164, 0.3);
+}
+.glow-safe {
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.6), 0 0 40px rgba(0, 255, 136, 0.3);
+}
+.glow-warn {
+  text-shadow: 0 0 20px rgba(255, 230, 0, 0.6), 0 0 40px rgba(255, 230, 0, 0.3);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes scan {
+  0%, 100% { transform: translateX(0px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+}
+@keyframes blink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.05; }
+}
+@keyframes chest-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.robot-float { animation: float 3s ease-in-out infinite; }
+.robot-eyes { animation: scan 2.4s ease-in-out infinite; }
+.eye-blink { animation: blink 5s ease-in-out infinite; }
+.chest-light { animation: chest-pulse 1.5s ease-in-out infinite; }
