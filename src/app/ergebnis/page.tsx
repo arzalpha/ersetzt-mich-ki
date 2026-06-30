@@ -65,7 +65,7 @@ function WaitlistBlock() {
         die dir hilft deinen Lebenslauf KI-sicher zu machen.
       </p>
       {status === 'done' ? (
-        <p className="text-sm font-bold" style={{ color: '#00ff88' }}>✓ Du bist auf der Liste. Wir melden uns!</p>
+        <p className="text-sm font-bold" style={{ color: '#00ff88' }}>✓ Du bist auf der Liste. Ich melde mich!</p>
       ) : (
         <form onSubmit={handleSubmit} className="flex gap-2 flex-wrap">
           <input

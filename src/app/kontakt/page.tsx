@@ -13,10 +13,16 @@ export default function Kontakt() {
     e.preventDefault()
     setStatus('sending')
     try {
-      const res = await fetch('/api/kontakt', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name,
+          email,
+          message,
+          subject: `Kontaktanfrage von ${name} — ersetzt-mich-ki.de`,
+        }),
       })
       setStatus(res.ok ? 'done' : 'error')
     } catch {
@@ -35,15 +41,15 @@ export default function Kontakt() {
         ← Zurück
       </Link>
       <p className="text-xs font-mono tracking-widest mb-2" style={{ color: 'rgba(0,229,255,0.6)' }}>&gt; KONTAKT_</p>
-      <h1 className="text-3xl font-black text-white mb-2">Schreib uns</h1>
+      <h1 className="text-3xl font-black text-white mb-2">Schreib mir</h1>
       <p className="text-sm mb-8" style={{ color: 'rgba(255,255,255,0.4)' }}>
-        Fragen, Feedback oder Kooperationsanfragen — wir antworten in der Regel innerhalb von 48 Stunden.
+        Fragen, Feedback oder Kooperationsanfragen — ich antworte in der Regel innerhalb von 48 Stunden.
       </p>
 
       {status === 'done' ? (
         <div className="rounded-2xl p-6 text-center" style={{ background: 'rgba(0,255,136,0.06)', border: '1px solid rgba(0,255,136,0.2)' }}>
           <p className="text-2xl font-black text-white mb-2">Nachricht gesendet ✓</p>
-          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>Wir melden uns bald bei dir.</p>
+          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>Ich melde mich bald bei dir.</p>
           <Link href="/" className="inline-block mt-4 text-sm underline" style={{ color: 'rgba(0,229,255,0.6)' }}>Zurück zur Startseite</Link>
         </div>
       ) : (
