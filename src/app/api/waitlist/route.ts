@@ -16,28 +16,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Ungültige E-Mail' }, { status: 400 })
   }
 
-  const apiKey = process.env.MAILERLITE_API_KEY
-  if (!apiKey) {
+  const listmonkUrl = process.env.LISTMONK_URL
+  const listUuid = process.env.LISTMONK_LIST_UUID
+  if (!listmonkUrl || !listUuid) {
     return NextResponse.json({ error: 'Konfigurationsfehler' }, { status: 500 })
   }
 
-  const body: Record<string, unknown> = { email }
-  if (process.env.MAILERLITE_GROUP_ID) {
-    body.groups = [process.env.MAILERLITE_GROUP_ID]
-  }
-
-  const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
+  const res = await fetch(`${listmonkUrl}/api/public/subscription`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, list_uuids: [listUuid] }),
   })
 
-  if (!res.ok && res.status !== 409) {
-    return NextResponse.json({ error: 'MailerLite-Fehler' }, { status: 500 })
+  if (!res.ok) {
+    return NextResponse.json({ error: 'Listmonk-Fehler' }, { status: 500 })
   }
 
   return NextResponse.json({ ok: true })
