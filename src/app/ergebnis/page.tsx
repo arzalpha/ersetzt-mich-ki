@@ -36,6 +36,24 @@ function DimensionBar({ label, value, inverted }: { label: string; value: number
   )
 }
 
+function FreebieMockup() {
+  return (
+    <svg viewBox="0 0 120 140" width="120" height="140" className="shrink-0" style={{ filter: 'drop-shadow(0 8px 24px rgba(0,229,255,0.25))' }}>
+      <rect x="14" y="10" width="86" height="112" rx="6" fill="#0d0d2b" stroke="#00e5ff" strokeOpacity="0.5" strokeWidth="1.5" transform="rotate(-4 57 66)" />
+      <rect x="20" y="16" width="86" height="112" rx="6" fill="#0d0d2b" stroke="#00e5ff" strokeWidth="2" />
+      <rect x="20" y="16" width="86" height="26" rx="6" fill="#00e5ff" opacity="0.12" />
+      <rect x="30" y="26" width="44" height="6" rx="2" fill="#00e5ff" />
+      <rect x="30" y="52" width="66" height="4" rx="2" fill="#ffffff" opacity="0.5" />
+      <rect x="30" y="62" width="66" height="4" rx="2" fill="#ffffff" opacity="0.3" />
+      <rect x="30" y="72" width="46" height="4" rx="2" fill="#ffffff" opacity="0.3" />
+      <rect x="30" y="90" width="30" height="18" rx="4" fill="#e500a4" opacity="0.85" />
+      <text x="45" y="102" textAnchor="middle" fontFamily="monospace" fontSize="9" fontWeight="bold" fill="#fff">PDF</text>
+      <circle cx="86" cy="99" r="12" fill="#00ff88" />
+      <text x="86" y="103" textAnchor="middle" fontFamily="monospace" fontSize="12" fontWeight="bold" fill="#060614">✓</text>
+    </svg>
+  )
+}
+
 function WaitlistBlock() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
@@ -57,39 +75,48 @@ function WaitlistBlock() {
   }
 
   return (
-    <section className="rounded-2xl p-6 mb-8" style={{ background: 'rgba(0,229,255,0.04)', border: '1px solid rgba(0,229,255,0.15)' }}>
-      <p className="text-xs font-mono tracking-widest mb-2" style={{ color: 'rgba(0,229,255,0.6)' }}>&gt; FRÜHER ZUGANG_</p>
-      <h2 className="text-xl font-black text-white mb-1">Karriereengel startet bald.</h2>
-      <p className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>
-        Trag dich ein — du bekommst als Erste:r Bescheid, wenn die Plattform live geht,
-        die dir hilft deinen Lebenslauf KI-sicher zu machen.
-      </p>
-      {status === 'done' ? (
-        <p className="text-sm font-bold" style={{ color: '#00ff88' }}>✓ Du bist auf der Liste. Ich melde mich!</p>
-      ) : (
-        <form onSubmit={handleSubmit} className="flex gap-2 flex-wrap">
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="deine@email.de"
-            required
-            disabled={status === 'sending'}
-            className="flex-1 min-w-0 rounded-xl px-4 py-2.5 text-white text-sm placeholder-gray-600 focus:outline-none"
-            style={{ background: 'rgba(0,229,255,0.06)', border: '1px solid rgba(0,229,255,0.2)' }}
-          />
-          <button
-            type="submit"
-            disabled={status === 'sending' || !email.trim()}
-            className="font-bold text-sm px-5 py-2.5 rounded-xl transition whitespace-nowrap"
-            style={{ background: 'rgba(0,229,255,0.15)', border: '1px solid rgba(0,229,255,0.3)', color: '#00e5ff', opacity: status === 'sending' ? 0.5 : 1 }}
-          >
-            {status === 'sending' ? '…' : 'Eintragen →'}
-          </button>
-        </form>
-      )}
-      {status === 'error' && <p className="text-xs mt-2" style={{ color: '#e500a4' }}>Fehler beim Eintragen — bitte nochmal versuchen.</p>}
-      <p className="text-xs mt-3" style={{ color: 'rgba(255,255,255,0.2)' }}>Kein Spam. Nur ein einziges Mal, wenn Karriereengel live ist.</p>
+    <section
+      className="rounded-2xl p-6 mb-8 relative overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, rgba(0,229,255,0.1) 0%, rgba(155,0,232,0.1) 100%)', border: '1px solid rgba(0,229,255,0.25)' }}
+    >
+      <div className="absolute pointer-events-none" style={{ top: '-40px', right: '-40px', width: '180px', height: '180px', background: 'radial-gradient(circle, rgba(229,0,164,0.25) 0%, transparent 70%)' }} />
+      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 relative z-10">
+        <FreebieMockup />
+        <div className="flex-1 w-full">
+          <p className="text-xs font-mono tracking-widest mb-2" style={{ color: '#00e5ff' }}>&gt; GRATIS DOWNLOAD_</p>
+          <h2 className="text-2xl font-black text-white mb-1">Hol dir dein kostenloses Freebie</h2>
+          <p className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.55)' }}>
+            <strong className="text-white">„Mein KI-Karriereplan“</strong> — 10 Seiten mit deinem persönlichen
+            Aktionsplan, je nach Risikolevel. Plus: Du bekommst als Erste:r Bescheid, wenn Karriereengel live geht.
+          </p>
+          {status === 'done' ? (
+            <p className="text-sm font-bold" style={{ color: '#00ff88' }}>✓ Check dein Postfach — dein Freebie ist unterwegs!</p>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex gap-2 flex-wrap">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="deine@email.de"
+                required
+                disabled={status === 'sending'}
+                className="flex-1 min-w-0 rounded-xl px-4 py-2.5 text-white text-sm placeholder-gray-600 focus:outline-none"
+                style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(0,229,255,0.3)' }}
+              />
+              <button
+                type="submit"
+                disabled={status === 'sending' || !email.trim()}
+                className="font-black text-sm px-5 py-2.5 rounded-xl transition whitespace-nowrap text-white"
+                style={{ background: 'linear-gradient(135deg, #00e5ff 0%, #9b00e8 100%)', boxShadow: '0 0 20px rgba(0,229,255,0.3)', opacity: status === 'sending' ? 0.5 : 1 }}
+              >
+                {status === 'sending' ? '…' : 'Jetzt kostenlos sichern →'}
+              </button>
+            </form>
+          )}
+          {status === 'error' && <p className="text-xs mt-2" style={{ color: '#e500a4' }}>Fehler beim Eintragen — bitte nochmal versuchen.</p>}
+          <p className="text-xs mt-3" style={{ color: 'rgba(255,255,255,0.25)' }}>Kein Spam. Jederzeit abmeldbar.</p>
+        </div>
+      </div>
     </section>
   )
 }
@@ -195,13 +222,13 @@ export default function ErgebnisPage() {
           </div>
         </section>
 
-        <section className="rounded-2xl p-6 mb-8" style={{ background: 'linear-gradient(135deg, rgba(229,0,164,0.12) 0%, rgba(155,0,232,0.08) 100%)', border: '1px solid rgba(229,0,164,0.25)' }}>
-          <p className="text-xs font-mono tracking-widest mb-2" style={{ color: '#e500a4' }}>&gt; NÄCHSTER SCHRITT_</p>
-          <h2 className="text-2xl font-black text-white mb-2">Mach deinen Lebenslauf KI-sicher</h2>
-          <p className="text-sm mb-5" style={{ color: 'rgba(255,255,255,0.5)' }}>Karriereengel hilft dir, die Fähigkeiten in den Vordergrund zu stellen, die KI nicht ersetzen kann — mit einem Lebenslauf, der dich zukunftssicher positioniert.</p>
-          <a href="https://karriereengel.de" target="_blank" rel="noopener noreferrer" className="inline-block font-black text-lg px-6 py-3 rounded-xl transition hover:opacity-90 text-white" style={{ background: 'linear-gradient(135deg, #e500a4 0%, #9b00e8 100%)', boxShadow: '0 0 24px rgba(229,0,164,0.4)' }}>
-            Lebenslauf optimieren →
-          </a>
+        <section className="rounded-2xl p-6 mb-8 opacity-40 pointer-events-none select-none" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <p className="text-xs font-mono tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.3)' }}>&gt; DEMNÄCHST_</p>
+          <h2 className="text-2xl font-black mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>Mach deinen Lebenslauf KI-sicher</h2>
+          <p className="text-sm mb-5" style={{ color: 'rgba(255,255,255,0.3)' }}>Karriereengel hilft dir, die Fähigkeiten in den Vordergrund zu stellen, die KI nicht ersetzen kann — mit einem Lebenslauf, der dich zukunftssicher positioniert.</p>
+          <span className="inline-block font-black text-lg px-6 py-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }}>
+            Bald verfügbar
+          </span>
         </section>
 
         <WaitlistBlock />
