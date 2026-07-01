@@ -2,10 +2,20 @@ import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { buildPrompt } from '@/lib/prompt'
 import type { ScoreResult } from '@/lib/types'
+import { getClientIp, isRateLimited, isSameOrigin } from '@/lib/rateLimit'
 
 const client = new Anthropic()
 
 export async function POST(req: NextRequest) {
+  if (!isSameOrigin(req)) {
+    return NextResponse.json({ error: 'Nicht erlaubt' }, { status: 403 })
+  }
+
+  const ip = getClientIp(req)
+  if (isRateLimited(ip, 5, 60 * 60 * 1000)) {
+    return NextResponse.json({ error: 'Zu viele Anfragen. Bitte später erneut versuchen.' }, { status: 429 })
+  }
+
   const { job, tasks } = await req.json()
 
   if (!job?.trim()) {
