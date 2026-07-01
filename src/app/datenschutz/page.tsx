@@ -32,8 +32,9 @@ export default function Datenschutz() {
           <p>Wenn du das Kontaktformular nutzt, werden dein Name, deine E-Mail-Adresse und deine Nachricht zur Bearbeitung deiner Anfrage verarbeitet (Art. 6 Abs. 1 lit. b DSGVO). Diese Daten werden nicht an Dritte weitergegeben und nach Abschluss der Anfrage gelöscht.</p>
         </section>
         <section>
-          <h2 className="text-white font-bold mb-2">6. Cookies & Tracking</h2>
-          <p>Diese Website verwendet <strong className="text-white">keine Tracking-Cookies</strong> und kein Analytics. Die Ergebnisanzeige nutzt den sessionStorage deines Browsers (lokal, wird beim Schließen des Tabs gelöscht).</p>
+          <h2 className="text-white font-bold mb-2">6. Cookies & Reichweitenmessung</h2>
+          <p>Diese Website verwendet <strong className="text-white">keine Tracking-Cookies</strong>. Die Ergebnisanzeige nutzt den sessionStorage deines Browsers (lokal, wird beim Schließen des Tabs gelöscht).</p>
+          <p className="mt-3">Zur anonymen Reichweitenmessung setzen wir Matomo ein, eine selbst gehostete Open-Source-Analysesoftware (kein Drittanbieter). Matomo ist so konfiguriert, dass <strong className="text-white">keine Cookies gesetzt</strong> und deine IP-Adresse anonymisiert wird. Es findet keine Weitergabe an Dritte statt. Die Messung erfolgt nur nach deiner Zustimmung über den Cookie-Hinweis auf der Website; deine Entscheidung wird lokal in deinem Browser gespeichert und kann jederzeit durch Löschen der Browserdaten zurückgesetzt werden. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
         </section>
         <section>
           <h2 className="text-white font-bold mb-2">7. Deine Rechte</h2>

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import './globals.css'
+import { MatomoTracker } from '@/components/Matomo'
 
 export const metadata: Metadata = {
   title: 'Ersetzt KI deinen Job? — Kostenloser KI-Risikocheck',
@@ -20,7 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de">
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <Suspense fallback={null}>
+          <MatomoTracker />
+        </Suspense>
+        {children}
+      </body>
     </html>
   )
 }
